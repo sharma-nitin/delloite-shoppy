@@ -1,0 +1,19 @@
+<div class="container m-40">
+  <main class="grid">
+    <article>
+      <img [src]=selectedProduct.image alt="selectedProduct.name">
+    </article>
+
+      <article>
+        <div class="text">
+          <h5>{{selectedProduct.title}}</h5>
+            <div class="category">{{selectedProduct.category | titlecase}}</div>
+            <div class="category">{{selectedProduct.description | titlecase}}</div>
+            <div>
+              <div class="category f-left">{{selectedProduct.price |currency}}</div>
+              <button class="buynow">Buy Now</button>
+            </div>
+          </div>
+        </article>
+  </main>
+</div>
