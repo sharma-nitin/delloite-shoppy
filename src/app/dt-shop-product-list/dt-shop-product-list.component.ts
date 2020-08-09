@@ -12,6 +12,11 @@ export class DtShopProductListComponent implements OnInit {
   loader = true;
   productsList = [];
   filteredList = [];
+  category = 'All';
+  minPrice = 0;
+  maxprice = 1000;
+  searchkeyword = '';
+
   constructor(private productservice: ProductService,
     private router: Router,
     private searchService: SearchService) { }
@@ -24,9 +29,19 @@ export class DtShopProductListComponent implements OnInit {
     });
 
     this.searchService.getSearchKey().subscribe((res: string) => {
-      this.filteredList = this.productsList.filter((product) => {
-        return product.title.toLowerCase().startsWith(res.toLowerCase());
-      });
+      this.searchkeyword = res;
+      if (this.category === 'All') {
+        this.filteredList = this.productsList.filter((product) => {
+          return product.title.toLowerCase().startsWith(res.toLowerCase()) &&
+            product.price >= this.minPrice && product.price <= this.maxprice;
+        });
+      } else {
+        this.filteredList = this.productsList.filter((product) => {
+          return product.title.toLowerCase().startsWith(res.toLowerCase()) &&
+            product.category.toLowerCase() === this.category.toLowerCase() &&
+            product.price >= this.minPrice && product.price <= this.maxprice;
+        });
+      }
     });
   }
 
@@ -35,4 +50,36 @@ export class DtShopProductListComponent implements OnInit {
     this.router.navigate(['detail', item.id]);
   }
 
+  selectedcategory(category) {
+    this.category = category;
+    if (category === 'All') {
+      this.filteredList = this.productsList.filter((product) => {
+        return product.title.toLowerCase().startsWith(this.searchkeyword.toLowerCase()) &&
+          product.price >= this.minPrice && product.price <= this.maxprice;
+      });
+    } else {
+      this.filteredList = this.productsList.filter((product) => {
+        return product.title.toLowerCase().startsWith(this.searchkeyword.toLowerCase()) &&
+          product.category.toLowerCase() === category.toLowerCase() &&
+          product.price >= this.minPrice && product.price <= this.maxprice;
+      });
+    }
+  }
+
+  priceRange(range) {
+    this.minPrice = range.value;
+    this.maxprice = range.highValue;
+    if (this.category === 'All') {
+      this.filteredList = this.productsList.filter((product) => {
+        return product.title.toLowerCase().startsWith(this.searchkeyword.toLowerCase()) &&
+          product.price >= range.value && product.price <= range.highValue;
+      });
+    } else {
+      this.filteredList = this.productsList.filter((product) => {
+        return product.title.toLowerCase().startsWith(this.searchkeyword.toLowerCase()) &&
+          product.category.toLowerCase() === this.category.toLowerCase() &&
+          product.price >= range.value && product.price <= range.highValue;
+      });
+    }
+  }
 }

@@ -1,4 +1,9 @@
 <div class="row m-10">
+  <div class="col-md-3">
+   <app-dt-shop-filter (selectedcategory)="selectedcategory($event)" (priceRange)="priceRange($event)"></app-dt-shop-filter>
+  </div>
+
+  <div class="col-md-9">
     <div class="container">
       <main class="grid" *ngIf="filteredList.length!==0">
         <article *ngFor="let item of filteredList" (click)="productDetail(item)">
@@ -20,6 +25,8 @@
          <p class="no-result">No matching result found...</p>
       </div>
     </div>
+  </div>
+
 </div>
 <div class="spinner" *ngIf="loader==true">
   <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>

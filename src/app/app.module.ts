@@ -8,18 +8,23 @@ import { DtShopProductListComponent } from './dt-shop-product-list/dt-shop-produ
 import { DtShopProductDetailComponent } from './dt-shop-product-detail/dt-shop-product-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { DtShopFilterComponent } from './dt-shop-filter/dt-shop-filter.component';
+import { Ng5SliderModule } from 'ng5-slider';
+
 @NgModule({
   declarations: [
     AppComponent,
     DtShopNavbarComponent,
     DtShopProductListComponent,
-    DtShopProductDetailComponent
+    DtShopProductDetailComponent,
+    DtShopFilterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    Ng5SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

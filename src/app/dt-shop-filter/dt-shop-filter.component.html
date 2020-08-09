@@ -1,0 +1,18 @@
+<div class="filter">
+  <p>Filter By </p>
+
+  <div class="category-item">
+    <p>Category :</p>
+    <select class="category" (change)="onCategoryChange($event.target.value)">
+      <option *ngFor="let option of Category" [value]="option.id">
+        {{option.name}}
+      </option>
+    </select>
+  </div>
+
+  <div class="category-item">
+    <p>Price Range :</p>
+    <ng5-slider [(value)]="value" [(highValue)]="highValue" [options]="options" (userChangeEnd)="priceFilter($event)"></ng5-slider>
+  </div>
+
+</div>
